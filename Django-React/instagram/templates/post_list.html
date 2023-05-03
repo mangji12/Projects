@@ -8,6 +8,13 @@
     <title>Document</title>
 </head>
 <body>
+<h1>{{ qs.author }}</h1>
+<h1>{{ qs.title }}</h1>
+{% if qs.photo %}
+<h1><img src="{{ qs.photo.url }}" alt=""></h1>
+{% else %}
+<h1>No Image</h1>
+{% endif %}
 
 </body>
 </html>
