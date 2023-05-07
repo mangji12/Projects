@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from instagram.models import Post
+from instagram import models
 
 
 # Register your models here.
-@admin.register(Post)
+@admin.register(models.Post)
 class Post(admin.ModelAdmin):
   list_display = ['author','title','content']

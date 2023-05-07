@@ -1,0 +1,25 @@
+{% load bootstrap4 %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title>Document</title>
+</head>
+<body>
+<h1>POST_LIST</h1>
+<table class="table table-bordered table-hover">
+    {% for p in post_list %}
+    <tr>
+        <td><span>{{ p.pk }}</span></td>
+        <td><span>{{ p.content }}</span></td>
+        <td><img src="{{ p.photo.url }}" alt=""></td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
