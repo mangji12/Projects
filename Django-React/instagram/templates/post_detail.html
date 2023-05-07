@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<h3> 작성자 : {{ post.author }}</h3>
+<div><h2>{{ post.content }}</h2></div>
+{% if post.photo %}
+<div>
+    <img src="{{ post.photo.url }}" alt="" style="width : 100px;">
+</div>
+{% else %}
+<p>No Photo</p>
+{% endif %}
+<div><h3>{{ post.title }}</h3></div>
+
+</body>
+</html>
