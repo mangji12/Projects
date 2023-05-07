@@ -16,12 +16,13 @@
     <input type="text" name="q" value="{{ q }}">
     <input type="submit" value="검색">
 </form>
-<a href="instagram:post_new" class="btn btn-primary btn-block mt-2 mb-2">포스트 생성</a>
+<a href="../post_form" class="btn btn-primary btn-block mt-2 mb-2">포스트 생성</a>
 <table class="table table-bordered table-hover">
     <tbody>
     {% for p in post_list %}
     <tr>
         <td><span>{{ p.pk }}</span></td>
+        <td><span>{{ p.title }}</span></td>
         <td>
             {% if p.photo %}
             <img src="{{ p.photo.url }}" alt="" style="width : 100px;">

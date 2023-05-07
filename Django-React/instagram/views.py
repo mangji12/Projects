@@ -19,7 +19,7 @@ post_list = ListView.as_view(model=Post,template_name='post_list.html',queryset=
 #     qs = qs.filter(title__icontains=q) # 모델의 title 속성 중 q 인자에 삽입된 값이 포함된 값을 __icontains 인자로서 검색을 구현한다.
 #   return render(request,'post_list.html',{'qs' : qs,'q' : q})
 
-def Post_new(request):
+def Post_form(request):
   if request.method == 'post':
     form = PostForm(request.POST,request.FILES) # 폼에서 데이터를 날리면 해당 구문으로 데이터를 받는다. (속성 대문자 주의)
     if form.is_valid():
