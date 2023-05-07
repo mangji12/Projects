@@ -5,15 +5,13 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Post_new</title>
 </head>
 <body>
-<table>
-    <form action="" enctype="multipart/form-data" method="Post">
-        {% csrf_token %}
-        <table>{{ form.as_table }}</table>
-        <input type="submit" value="확인">
-    </form>
-</table>
+<form action="" enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <table>{{ form.as_table }}</table>
+    <input type="submit" value="저장">
+</form>
 </body>
 </html>

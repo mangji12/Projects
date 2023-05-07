@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from django.urls import reverse
 # Create your models here.
 
 class Post(models.Model):
@@ -10,6 +10,5 @@ class Post(models.Model):
   photo = models.ImageField(blank=True, upload_to='instagram/post/%Y/%M/%D')
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
-
-  def get_absoulute_url(self):
+  def get_absolute_url(self):
     return reverse('instagram:post_detail', args=[self.pk])
