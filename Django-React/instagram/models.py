@@ -11,5 +11,5 @@ class Post(models.Model):
   created_at = models.DateTimeField(auto_now_add=True)
   updated_at = models.DateTimeField(auto_now=True)
 
-  def __str__(self):
-    return f'작성자 : {self.author}'
+  def get_absoulute_url(self):
+    return reverse('instagram:post_detail', args=[self.pk])

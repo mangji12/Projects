@@ -24,7 +24,7 @@ def Post_new(request):
     form = PostForm(request.Post,request.Files)
     if form.is_valid():
       post = form.save() # commit=True가 default. 객체를 생성하고 save()를 해야 실제 DB에 값이 저장이 된다.
-      return redirect(post)
+      return redirect(post) #get_absolute_url이 구현되어 있으면 이동.
   else:
     form = PostForm() # 파일 로딩이 안됐으므로, 유효성 검사에 적합한 값을 넣도록 다시 되돌린다.
     return render(request,'post_new.html',{'form' : form})
