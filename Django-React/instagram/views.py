@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 
 from instagram.forms import PostForm
@@ -26,10 +27,12 @@ post_list = ListView.as_view(model=Post,template_name='post_list.html',queryset=
 class PostCreateView(LoginRequiredMixin, CreateView):
   model = Post
   form_class = PostForm
+  template_name = 'post_form.html'
   def form_valid(self, form):
     self.object = form.save(commit=False) # BaseView에 있는 object 인자(옵션)에 가져온 form(PostForm)정보를 (임시)저장
     self.object.author = self.request.user # 가져온 form의 author 정보에 reuqest로 보낸 user(pk)정보를 전달.
-    messages.info(request,'포스팅을 저장했습니다.')
+    self.object = form.save()
+    messages.info(self.request,'포스팅을 저장했습니다.') # 함수 기반 객체가 아닌 클래스 가반 뷰(CBV에서 request 객체를 반환 받을 때)
     return super().form_valid(form) # 부모의 form_valid를 호출(기본 함수 내장)
 
 post_new = PostCreateView.as_view()
@@ -70,11 +73,14 @@ def post_delete(request, pk):
 class PostUpdateView(LoginRequiredMixin,UpdateView):
   model = Post
   form_class = PostForm
+  success_url = reverse_lazy('post_detail.html')
+  template_name = 'post_form.html'
 
   def form_valid(self,form):
     messages.success(self.request,'포스팅을 수정하였습니다.')
     return super().form_valid(form)
-  post_edit = PostUpdateView.as_view()
+
+post_edit = PostUpdateView.as_view()
 # # FBV (edit)
 # @login_required
 # def post_edit(request, pk):
