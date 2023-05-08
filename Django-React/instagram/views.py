@@ -25,9 +25,11 @@ post_list = ListView.as_view(model=Post,template_name='post_list.html',queryset=
 def post_new(request,pk):
   # post = get_object_or_404(Post, pk=pk)
   if request.method == 'POST':
-    form = PostForm(request.POST,request.FILES, instance=post) # 폼에서 데이터를 날리면 해당 구문으로 데이터를 받는다. (속성 대문자 주의)
+    form = PostForm(request.POST,request.FILES) # 폼에서 데이터를 날리면 해당 구문으로 데이터를 받는다. (속성 대문자 주의)
     if form.is_valid():
-      post = form.save() # commit=True가 default. 객체를 생성하고 save()를 해야 실제 DB에 값이 저장이 된다.
+      post = form.save(commit=False) # commit=True가 default. 객체를 생성하고 save()를 해야 실제 DB에 값이 저장이 된다.
+      post.author = request.user
+      post.save()
       # messages.add_message(request, messages,SUCCESS, '새 글이 등록되었습니다.')
       messages.info(request, '새 글이 등록되었습니다.') # 혹은 shortcut 형태
       return redirect(post) # 모델에 get_absolute_url이 구현되어 있으면 이동.
