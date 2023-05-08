@@ -1,3 +1,4 @@
+{% load bootstrap4 %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -5,11 +6,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
     <title>Document</title>
 </head>
 <body>
 <h3> 작성자 : {{ post.author }}</h3>
-<div><h2>{{ post.content }}</h2></div>
+<div><h3>{{ post.title|linebreaks }}</h3></div>
+<div><h2>{{ post.content|linebreaks }}</h2></div>
 {% if post.photo %}
 <div>
     <img src="{{ post.photo.url }}" alt="" style="width : 100px;">
@@ -17,7 +21,8 @@
 {% else %}
 <p>No Photo</p>
 {% endif %}
-<div><h3>{{ post.title }}</h3></div>
+<a href="{% url 'instagram:post_list' %}" class="btn btn-primary">목록</a>
+<a href="{% url 'instagram:post_edit' post.pk %}" class="btn btn-danger">수정</a>
 
 </body>
 </html>
