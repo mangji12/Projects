@@ -22,7 +22,7 @@ post_list = ListView.as_view(model=Post,template_name='post_list.html',queryset=
 #   return render(request,'post_list.html',{'qs' : qs,'q' : q})
 
 @login_required
-def post_new(request,pk):
+def post_new(request):
   # post = get_object_or_404(Post, pk=pk)
   if request.method == 'POST':
     form = PostForm(request.POST,request.FILES) # 폼에서 데이터를 날리면 해당 구문으로 데이터를 받는다. (속성 대문자 주의)
@@ -37,11 +37,21 @@ def post_new(request,pk):
     form = PostForm() # 파일 로딩이 안됐으므로, 유효성 검사에 적합한 값을 넣도록 다시 되돌린다.
   return render(request,'post_form.html',{'form' : form,'post':None})
 
+@login_required
+def post_delete(request, pk):
+  post = get_object_or_404(Post,pk=pk)
+  if request.method == "POST":
+    post.delete()
+    messages.success(request,'포스팅을 삭제하였습니다.')
+    return redirect('post_list.html')
+  return render(request,'post_confirm_delete.html',{'post':post})
+
 
 # FBV (edit)
 @login_required
 def post_edit(request, pk):
   post = get_object_or_404(Post,pk=pk)
+
 
   # 작성자 체크
   if post.author != request.user:
