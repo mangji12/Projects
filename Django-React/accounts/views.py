@@ -40,7 +40,7 @@ def profile_edit(request):
       profile.user = request.user
       form.save()
       messages.info(request,'프로필 수정이 완료되었습니다.')
-      return redirect('profile')
+      return redirect('accounts:profile')
   else:
     form = ProfileForm(instance=profile)
     return render(request,'profile_form.html',{'form':form,'profile':profile})
