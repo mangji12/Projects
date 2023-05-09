@@ -8,10 +8,12 @@
     <title>Document</title>
 </head>
 <body>
-<!--User 모델의 인스턴스 -->
-<!--로그아웃 시에는 AnonymousUser-->
-<h1>{{ user }}</h1>
-{{ user.is_authenticated }}
-<a href="{% url 'accounts:profile_edit' %}">프로필 수정</a>
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <input type="submit" value="프로필 수정">
+</form>
 </body>
 </html>
