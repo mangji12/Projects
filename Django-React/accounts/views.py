@@ -1,14 +1,16 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import get_user_model
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import TemplateView, UpdateView
+from django.views.generic import TemplateView, UpdateView, CreateView
 from django.contrib import messages
-
+from django.conf import settings
 from accounts.forms import ProfileForm
 from accounts.models import Profile
 
-
 # Create your views here.
+User = get_user_model()
 # FBV (profile)
 # def profile(request):
 #   return render(request, 'profile.html')
@@ -45,3 +47,9 @@ def profile_edit(request):
     form = ProfileForm(instance=profile)
     return render(request,'profile_form.html',{'form':form,'profile':profile})
 
+signup = CreateView.as_view(
+  model=User,
+  form_class=UserCreationForm,
+  success_url='instagram:post_list',
+  template_name='signup_form.html'
+)
