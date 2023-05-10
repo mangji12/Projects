@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # Third Apps
+    'django_extensions',
+    'django_bootstrap5',
     'debug_toolbar',
     # Django Apps
     'django.contrib.admin',
@@ -59,7 +61,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR,'mysite','templates'), # 기본 템플릿의 경로
+            os.path.join('templates'), # 기본 템플릿의 경로
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -121,12 +123,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR), # 정적 파일이 담기는 기본 경로 설정.
+    os.path.join(BASE_DIR,'static'), # 정적 파일이 담기는 기본 경로 설정.
 ]
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
-MEDIA_URL = 'media/'
+STATIC_ROOT = os.path.join(BASE_DIR)
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
