@@ -23,7 +23,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('',TemplateView.as_view(template_name='root.html'),name='root'), # 정규식 path를 사용하면 모든 문자열에 대해 매칭이 된다.
-
+    path('accounts/',include('accounts.urls')),
 ]
 
 
