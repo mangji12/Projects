@@ -13,7 +13,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -127,8 +127,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [BASE_DIR,'Django_Instagram','static'] # 정적파일들을 순회할 경로를 설정하는 옵션 manage.py collectstatic 를 하면 static 폴더에 모이게 되낟.
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATICFILES_DIRS = [BASE_DIR] # 정적파일들을 순회할 경로를 설정하는 옵션 manage.py collectstatic 를 하면 static 폴더에 모이게 되낟.
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
