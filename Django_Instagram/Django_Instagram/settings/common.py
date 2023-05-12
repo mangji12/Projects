@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third apps
     'django_extensions',
-    'django_bootstrap5',
+    'bootstrap4',
     'debug_toolbar',
     # local apps
     'accounts',
@@ -126,12 +126,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
-STATICFILES_DIRS = [BASE_DIR] # 정적파일들을 순회할 경로를 설정하는 옵션 manage.py collectstatic 를 하면 static 폴더에 모이게 되낟.
+STATIC_URL = '/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR,'static') # 개발환경에서는 정적파일을 수집하지 않으므로 None로 설정될 수 있음
+STATICFILES_DIRS = [BASE_DIR] # 정적파일들을 순회할 경로를 설정하는 옵션 manage.py collectstatic 를 하면 static 폴더에 모이게 된다.
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
