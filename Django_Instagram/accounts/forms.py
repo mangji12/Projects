@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from accounts.models import User
 
 '''
-보통 이렇게 만들지는 않는다.
+회원가입 폼을 보통 이렇게 만들지는 않는다.
 class SignupForm(forms.ModelForm):
   class Meta:
     model = User
@@ -19,7 +19,7 @@ class SignupForm(UserCreationForm):
     self.fields['first_name'].required = True
     self.fields['last_name'].required = True
 
-  # 입력 칸 커스텀. UserCreationForm의 메타 속성을 상속 받아서 overwrite.
+  # 입력을 받을 칸 커스텀. UserCreationForm의 메타 속성을 상속 받아서 overwrite.
   class Meta(UserCreationForm.Meta):
     model = User
     fields = ['username','email','first_name','last_name',]
