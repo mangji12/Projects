@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -128,7 +130,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR,'static') # 개발환경에서는 정적파일을 수집하지 않으므로 None로 설정될 수 있음
-STATICFILES_DIRS = [BASE_DIR] # 정적파일들을 순회할 경로를 설정하는 옵션 manage.py collectstatic 를 하면 static 폴더에 모이게 된다.
+STATICFILES_DIRS = [BASE_DIR,'static'] # 정적파일들을 순회할 경로를 설정하는 옵션 manage.py collectstatic 를 하면 static 폴더에 모이게 된다.
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -140,3 +143,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # 디버그 툴바를 위한 설정
 INTERNAL_IPS = ['127.0.0.1',]
+
+LOGIN_REDIRECT_URL = reverse_lazy('root')
+LOGOUT_REDIRECT_URL = reverse_lazy('root')
