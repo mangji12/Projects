@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm as AuthPasswordChangeForm
 from accounts.models import User
 
 '''
@@ -39,3 +39,14 @@ class ProfileForm(forms.ModelForm):
   class Meta:
     model = User
     fields = ['profile','first_name','last_name','website_url','bio','gender']
+
+class PasswordChangeForm(AuthPasswordChangeForm):
+  # 패스워드가 기존의 것과 같은지 검사, password2는 아랫 칸에 해당 로직이 구현된다.
+  def clean_new_password2(self):
+    old_password = self.cleaned_data.get('old_password')
+    new_password1 = super().clean_new_password2()
+    # 커스텀(자체 코드 없음)
+    if old_password and new_password1:
+      if old_password == new_password1:
+        raise forms.ValidationError('새로운 비밀번호를 입력하세요')
+      return new_password1

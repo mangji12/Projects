@@ -1,12 +1,33 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView, LogoutView, logout_then_login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView, logout_then_login, PasswordChangeView as AuthPasswordChangeView
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import UpdateView
-from django.contrib.auth import login as login_auth
+from django.contrib.auth import login as auth_login
 from accounts.forms import SignupForm, ProfileForm
 from django.contrib import messages
+from . forms import PasswordChangeForm
 
 # Create your views here.
+# password_change
+# @login_required
+# def password_change(request):
+#   pass
+
+
+class PasswordChangeView(LoginRequiredMixin,AuthPasswordChangeView):
+  success_url = reverse_lazy('index:root')
+  template_name = 'password_change_form.html'
+  # 중복 비밀번호에 대한 검사
+  form_class = PasswordChangeForm
+  # 자체 뷰에서도 form_valid가 있으므로 부모의 메서드를 가져오게 되면 초기화를 해줘야 한다.(super())
+  def form_valid(self,form):
+    messages.success(self.request,'암호를 변경했습니다.')
+    return super().form_class(form)
+
+password_change = PasswordChangeView.as_view()
+
 # profile view
 # profile_edit = UpdateView.as_view(template_name='profile_edit_form.html')
 @login_required
