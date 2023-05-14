@@ -22,6 +22,7 @@ from django.urls import include, path
 from django.views.generic import TemplateView
 from django_pydenticon.views import image as pydenticon_image
 
+app_name = 'index'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login_required(TemplateView.as_view(template_name='root.html')), name='root'),

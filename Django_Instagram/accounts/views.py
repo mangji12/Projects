@@ -1,13 +1,26 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView, logout_then_login
 from django.shortcuts import render, redirect
 from django.views.generic import UpdateView
 from django.contrib.auth import login as login_auth
-from accounts.forms import SignupForm
+from accounts.forms import SignupForm, ProfileForm
 from django.contrib import messages
 
 # Create your views here.
 # profile view
-profile_edit = UpdateView.as_view(template_name='profile_edit_form.html')
+# profile_edit = UpdateView.as_view(template_name='profile_edit_form.html')
+@login_required
+def profile_edit(request):
+  form = ProfileForm(request.POST,request.FILES,instance=request.user)
+  if request.method == 'POST':
+    if form.is_valid():
+      form.save()
+      messages.success(request,'프로필을 수정하였습니다.')
+      return redirect('accounts:profile_edit')
+    else:
+      # 빈 form을 전달하면 안된다.
+      form = ProfileForm(instance=request.user)
+  return render(request, 'profile_edit_form.html',{'form':form})
 
 # login
 login = LoginView.as_view(template_name='login_form.html')
