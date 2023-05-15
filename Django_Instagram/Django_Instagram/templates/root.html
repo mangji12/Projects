@@ -2,5 +2,13 @@
 {% load static %}
 
 {% block content %}
-<h1>컨텐츠가 담길 공간입니다.</h1>
+    <div class="container">
+
+    <div class="row">
+    <div class="col-sm-12">
+    <a href="{% url 'instagram:post_new' %}" class="btn btn-primary">새 포스팅 쓰기</a>
+    </div>
+    </div>
+    </div>
+
 {% endblock %}
