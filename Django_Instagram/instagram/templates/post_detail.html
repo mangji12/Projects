@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {{ post }}
+    {% for tag in post.tag_set.all %}
+        <span class="badge badge-primary">
+        #{{ tag.name }}
+        </span>
+    {% endfor %}
+{% endblock %}

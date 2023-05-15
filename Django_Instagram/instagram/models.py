@@ -1,6 +1,11 @@
+import tag as tag
 from django.db import models
 from django.conf import settings
 import re
+
+from django.urls import reverse
+
+
 # Create your models here.
 
 class Post(models.Model):
@@ -19,9 +24,12 @@ class Post(models.Model):
     tag_list = []
     for tag_name in tag_name_list:
       # get_or_create() 메서드는 두 개의 값을 반환합니다. 첫 번째 값은 검색된 또는 생성된 객체이고, 두 번째 값은 불리언(Boolean) 값으로, 해당 객체가 새로 생성되었는지 여부를 나타냅니다.
-      Tag.objects.get_or_create(name=tag_name)
+      tag, _ = Tag.objects.get_or_create(name=tag_name)
       tag_list.append(tag)
-      return tag_list
+    return tag_list
+
+  def get_absolute_url(self):
+    return reverse('instagram:post_detail', kwargs={'pk':self.pk}) # args=[self.pk] 도 가능
 
 class Tag(models.Model):
   # unique=True는 해당 필드에 저장되는 값이 고유하다는 것을 보장. 즉, 동일한 name 값을 가지는 두 개의 Tag 인스턴스를 생성할 수 없음.

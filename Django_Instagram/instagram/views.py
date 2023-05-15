@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from instagram.models import Tag
+from django.shortcuts import render, redirect, get_object_or_404
+from instagram.models import Tag, Post
 from django.contrib import messages
 from instagram.forms import PostForm
 
@@ -26,4 +26,10 @@ def post_new(request):
     form = PostForm()
   return render(request, 'post_form.html',{
     'form':form
+  })
+
+def post_detail(request, pk):
+  post = get_object_or_404(Post, pk=pk)
+  return render(request, 'post_detail.html',{
+    'post':post
   })
