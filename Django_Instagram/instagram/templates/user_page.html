@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <img src="{{ page_user.profile }}" alt="">
+            <a href="{% url 'accounts:profile_edit' %}">프로필 수정</a>
+            <hr/>
+            {{ post_list_count }} posts 0 follows 0 followings
+        </div>
+    </div>
+    </div>
+{% endblock %}
