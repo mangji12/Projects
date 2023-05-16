@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView, logout_then_login, PasswordChangeView as AuthPasswordChangeView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import login as auth_login, get_user_model
 from accounts.forms import SignupForm, ProfileForm
 from django.contrib import messages
 from . forms import PasswordChangeForm
@@ -78,5 +78,21 @@ def signup(request):
   else:
     form = SignupForm()
   return render(request,'signup_form.html',{'form':form})
+
+@login_required
+def user_follow(request,username):
+  follow_user = get_object_or_404(get_user_model(),username=username,is_active=True)
+  request.user.following_set.add(follow_user)
+  follow_user.follower_set.add(request.user)
+  redirect_url = request.META.get("HTTP_REFERER",'root')
+  return redirect(redirect_url)
+
+@login_required
+def user_unfollow(request,username):
+  follow_user = get_object_or_404(get_user_model(),username=username,is_active=True)
+  request.user.following_set.remove(follow_user)
+  follow_user.follower_set.remove(request.user)
+  redirect_url = request.META.get("HTTP_REFERER",'root')
+  return redirect(redirect_url)
 
 

@@ -41,3 +41,25 @@ def user_page(request, username):
   post_list_count = post_list.count()
   return render(request, 'user_page.html',{'page_user':page_user,'post_list':post_list,'post_list_count':post_list_count})
 
+@login_required
+def index(request):
+  return render(request, 'root.html',{
+
+  })
+
+@login_required
+def post_like(request):
+  post = get_object_or_404(Post, pk=pk)
+  # 좋아요한 유저를 like_user_set 리스트에 추가.
+  post.like_user_set.add(request.user)
+  messages.success(request, f'{post}를 좋아합니다.')
+  redirect_url = request.META.get('HTTP_REFERER', 'root')
+  return redirect(redirect_url)
+
+@login_required
+def post_unlike(request):
+  post = get_object_or_404(Post, pk=pk)
+  post.like_user_set.remove(request.user)
+  messages.success(request, f'{post} 좋아요를 취소합니다.')
+  redirect_url = request.META.get('HTTP_REFERER', 'root')
+  return redirect(redirect_url)
